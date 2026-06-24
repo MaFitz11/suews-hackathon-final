@@ -3,35 +3,124 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SUEWS Hackathon Final</title>
+  <title>UDA-city Heat Justice Adaptation</title>
   <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; color: #1f2933; background: #f7faf9; }
-    main { max-width: 900px; margin: 0 auto; padding: 48px 24px; }
-    h1 { font-size: clamp(2rem, 6vw, 4rem); margin: 0 0 16px; line-height: 1.05; }
-    h2 { margin-top: 36px; }
-    p, li { font-size: 1.05rem; line-height: 1.6; }
-    .status { background: #ffffff; border: 1px solid #d7e2dd; border-radius: 8px; padding: 18px 20px; }
-    .tag { display: inline-block; font-size: .9rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #0f766e; margin-bottom: 12px; }
+    :root{--ink:#17212b;--muted:#60707d;--paper:#fbfcf8;--panel:#fff;--line:#d9e2dc;--green:#1f7a68;--orange:#d64a1f;--blue:#2f63b3;--red:#b72525;--teal:#0f766e}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--paper)}
+    header{min-height:88vh;display:grid;align-items:center;background:linear-gradient(120deg,rgba(11,45,51,.93),rgba(128,49,23,.83));color:#fff}
+    .wrap{width:min(1120px,calc(100% - 40px));margin-inline:auto}.hero{max-width:900px;padding:72px 0 92px}.eyebrow{text-transform:uppercase;letter-spacing:.08em;font-weight:800;font-size:.82rem;color:#b9f4e7}
+    h1{font-size:clamp(2.6rem,7vw,6.2rem);line-height:.96;margin:18px 0 22px;letter-spacing:0} h2{font-size:clamp(1.6rem,3vw,2.5rem);margin:0 0 18px;letter-spacing:0} h3{font-size:1.15rem;margin:0 0 10px}
+    p{line-height:1.68;color:#31414c;font-size:1.04rem}.lead{font-size:clamp(1.08rem,2vw,1.35rem);line-height:1.55;max-width:820px;color:#eef8f4}.section-intro{max-width:830px}
+    main{padding:56px 0 80px}section{margin:0 0 72px}.hero-grid,.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}.hero-stat{border:1px solid rgba(255,255,255,.34);background:rgba(255,255,255,.12);border-radius:8px;padding:18px}.hero-stat strong{display:block;font-size:2.1rem;line-height:1}.hero-stat span{display:block;margin-top:8px;color:#dbece7;line-height:1.35}
+    .card,.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px;box-shadow:0 10px 24px rgba(20,37,44,.05)}.card .big{font-size:2rem;font-weight:850}.split{display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:start}.callout{border-left:5px solid var(--teal);background:#edf8f5;padding:18px 20px;border-radius:8px}.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.pillar{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px}
+    .legend{display:flex;gap:18px;flex-wrap:wrap;margin:4px 0 18px}.key{display:inline-flex;gap:7px;align-items:center;color:#31414c;font-size:.95rem}.swatch{width:13px;height:13px;border-radius:3px}.current{background:var(--green)}.future{background:var(--orange)}.adapt{background:var(--blue)}
+    .heat-chart{display:grid;gap:12px}.heat-row{display:grid;grid-template-columns:165px 1fr;gap:12px;align-items:center}.heat-name{font-weight:750}.bars{display:grid;gap:5px}.bar-line{display:grid;grid-template-columns:1fr 48px;gap:8px;align-items:center}.bar-track{height:14px;background:#edf1ee;border-radius:999px;overflow:hidden}.bar{height:100%;border-radius:999px}.bar-label{font-size:.84rem;color:#52616b;text-align:right}
+    .risk-list{display:grid;gap:10px;margin-top:12px}.risk-row{display:grid;grid-template-columns:170px 1fr 58px;gap:12px;align-items:center;font-size:.95rem}.risk-track{height:16px;background:#edf1ee;border-radius:999px;overflow:hidden}.risk-fill{height:100%;border-radius:999px;background:var(--blue)}.risk-fill.hotspot{background:var(--red)}.risk-fill.refuge{background:var(--green)}.risk-fill.core{background:var(--blue)}
+    table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}th,td{padding:11px 10px;border-bottom:1px solid var(--line);text-align:left;font-size:.94rem}th{background:#edf3ef;color:#293741}tr:last-child td{border-bottom:0}.table-wrap{overflow-x:auto}.type{display:inline-block;padding:3px 8px;border-radius:999px;font-weight:750;font-size:.78rem}.type.hotspot{background:#fee2e2;color:#9f1239}.type.refuge{background:#dcfce7;color:#166534}.type.core{background:#dbeafe;color:#1e40af}ul{color:#31414c;line-height:1.65}footer{border-top:1px solid var(--line);padding:28px 0 44px;color:var(--muted)}
+    @media(max-width:820px){.hero-grid,.cards,.split,.pillars{grid-template-columns:1fr}.heat-row{grid-template-columns:1fr}.risk-row{grid-template-columns:120px 1fr 50px}header{min-height:auto}}
   </style>
 </head>
 <body>
-  <main>
-    <span class="tag">SUEWS Community Hackathon</span>
-    <h1>UDA-city heat hazard and risk</h1>
-    <p>This is the initial public showcase page for the hackathon repository. The full analysis will use SUEWS to model heat hazard across the ten synthetic UDA-city neighbourhoods and then bridge that environmental hazard to socio-economic heat risk.</p>
+<header>
+  <div class="wrap hero">
+    <div class="eyebrow">SUEWS Community Hackathon / UDA-city</div>
+    <h1>Heat adaptation is most powerful when it is targeted.</h1>
+    <p class="lead">I modelled a synthetic hot-humid city under current climate, a hotter +2.5 C future, and a constrained adaptation future. A feasible package reduces citywide heat-risk pressure by <strong>15.4%</strong>, guarantees at least <strong>5%</strong> improvement in every neighbourhood, and gives larger gains to the places with the greatest vulnerability.</p>
+    <div class="hero-grid">
+      <div class="hero-stat"><strong>3</strong><span>scenarios: current, hotter future, targeted adaptation</span></div>
+      <div class="hero-stat"><strong>20%</strong><span>maximum citywide conversion of paved/bare soil to cooling land cover</span></div>
+      <div class="hero-stat"><strong>15.4%</strong><span>citywide reduction in heat-risk pressure under targeted allocation</span></div>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+  <section>
+    <h2>The research question</h2>
+    <p class="section-intro">Where is heat most dangerous to people in UDA-city, and how much can a realistic adaptation package reduce that danger? The answer is not simply the hottest neighbourhood. Risk emerges where heat, exposure, and vulnerability overlap.</p>
+    <div class="cards">
+      <div class="card"><h3>Current climate</h3><div class="big">111</div><p><strong>Observed hot-humid season</strong><br>Total April-May neighbourhood-hours with 2 m air temperature above 35 C.</p></div>
+      <div class="card"><h3>Hotter future</h3><div class="big">1159</div><p><strong>+2.5 C pseudo-warming</strong><br>The same season under a controlled climate-change stress test.</p></div>
+      <div class="card"><h3>Adaptation future</h3><div class="big">1143</div><p><strong>Targeted cooling package</strong><br>Greening plus targeted cooling access under explicit feasibility limits.</p></div>
+    </div>
+  </section>
 
-    <section class="status">
-      <h2>Setup Status</h2>
-      <ul>
-        <li>Repository created from the official SUEWS hackathon template.</li>
-        <li>Task brief read and summarised for the workflow.</li>
-        <li>Challenge data identified as UDA-city, a synthetic hot-humid city with present and hotter-future forcing.</li>
-        <li>Live SUEWS example run is pending because the local suews-agent command is not currently available in this environment.</li>
-      </ul>
-    </section>
+  <section>
+    <h2>Heat hazard: hours above 35 C</h2>
+    <p class="section-intro">The main physical metric is dangerous heat hours: hourly mean 2 m air temperature above 35 C during April-May. March was treated as model spin-up and excluded from the analysis.</p>
+    <div class="panel">
+      <div class="legend"><span class="key"><span class="swatch current"></span>Current</span><span class="key"><span class="swatch future"></span>Hotter future</span><span class="key"><span class="swatch adapt"></span>Adaptation future</span></div>
+      <div class="heat-chart">
+        <div class="heat-row"><div class="heat-name">Jade Gardens</div><div class="bars"><div class="bar-line"><div class="bar-track"><div class="bar current" style="width:15.4%"></div></div><span class="bar-label">26</span></div><div class="bar-line"><div class="bar-track"><div class="bar future" style="width:100%"></div></div><span class="bar-label">169</span></div><div class="bar-line"><div class="bar-track"><div class="bar adapt" style="width:95.9%"></div></div><span class="bar-label">162</span></div></div></div>
+        <div class="heat-row"><div class="heat-name">Kampong Lama</div><div class="bars"><div class="bar-line"><div class="bar-track"><div class="bar current" style="width:14.2%"></div></div><span class="bar-label">24</span></div><div class="bar-line"><div class="bar-track"><div class="bar future" style="width:96.4%"></div></div><span class="bar-label">163</span></div><div class="bar-line"><div class="bar-track"><div class="bar adapt" style="width:92.9%"></div></div><span class="bar-label">157</span></div></div></div>
+        <div class="heat-row"><div class="heat-name">Taman Melati</div><div class="bars"><div class="bar-line"><div class="bar-track"><div class="bar current" style="width:12.4%"></div></div><span class="bar-label">21</span></div><div class="bar-line"><div class="bar-track"><div class="bar future" style="width:90.5%"></div></div><span class="bar-label">153</span></div><div class="bar-line"><div class="bar-track"><div class="bar adapt" style="width:87.0%"></div></div><span class="bar-label">147</span></div></div></div>
+        <div class="heat-row"><div class="heat-name">Dhobi Lines</div><div class="bars"><div class="bar-line"><div class="bar-track"><div class="bar current" style="width:8.9%"></div></div><span class="bar-label">15</span></div><div class="bar-line"><div class="bar-track"><div class="bar future" style="width:83.4%"></div></div><span class="bar-label">141</span></div><div class="bar-line"><div class="bar-track"><div class="bar adapt" style="width:83.4%"></div></div><span class="bar-label">141</span></div></div></div>
+        <div class="heat-row"><div class="heat-name">Fuzhou Lanes</div><div class="bars"><div class="bar-line"><div class="bar-track"><div class="bar current" style="width:7.7%"></div></div><span class="bar-label">13</span></div><div class="bar-line"><div class="bar-track"><div class="bar future" style="width:80.5%"></div></div><span class="bar-label">136</span></div><div class="bar-line"><div class="bar-track"><div class="bar adapt" style="width:81.7%"></div></div><span class="bar-label">138</span></div></div></div>
+        <div class="heat-row"><div class="heat-name">Serendib Rise</div><div class="bars"><div class="bar-line"><div class="bar-track"><div class="bar current" style="width:5.3%"></div></div><span class="bar-label">9</span></div><div class="bar-line"><div class="bar-track"><div class="bar future" style="width:72.8%"></div></div><span class="bar-label">123</span></div><div class="bar-line"><div class="bar-track"><div class="bar adapt" style="width:70.4%"></div></div><span class="bar-label">119</span></div></div></div>
+        <div class="heat-row"><div class="heat-name">Mlima Moto</div><div class="bars"><div class="bar-line"><div class="bar-track"><div class="bar current" style="width:.6%"></div></div><span class="bar-label">1</span></div><div class="bar-line"><div class="bar-track"><div class="bar future" style="width:53.8%"></div></div><span class="bar-label">91</span></div><div class="bar-line"><div class="bar-track"><div class="bar adapt" style="width:55.6%"></div></div><span class="bar-label">94</span></div></div></div>
+        <div class="heat-row"><div class="heat-name">Lusitano Square</div><div class="bars"><div class="bar-line"><div class="bar-track"><div class="bar current" style="width:.6%"></div></div><span class="bar-label">1</span></div><div class="bar-line"><div class="bar-track"><div class="bar future" style="width:42.6%"></div></div><span class="bar-label">72</span></div><div class="bar-line"><div class="bar-track"><div class="bar adapt" style="width:42.0%"></div></div><span class="bar-label">71</span></div></div></div>
+        <div class="heat-row"><div class="heat-name">Victoria Exchange</div><div class="bars"><div class="bar-line"><div class="bar-track"><div class="bar current" style="width:.6%"></div></div><span class="bar-label">1</span></div><div class="bar-line"><div class="bar-track"><div class="bar future" style="width:39.1%"></div></div><span class="bar-label">66</span></div><div class="bar-line"><div class="bar-track"><div class="bar adapt" style="width:40.8%"></div></div><span class="bar-label">69</span></div></div></div>
+        <div class="heat-row"><div class="heat-name">Zheng He Towers</div><div class="bars"><div class="bar-line"><div class="bar-track"><div class="bar current" style="width:0%"></div></div><span class="bar-label">0</span></div><div class="bar-line"><div class="bar-track"><div class="bar future" style="width:26.6%"></div></div><span class="bar-label">45</span></div><div class="bar-line"><div class="bar-track"><div class="bar adapt" style="width:26.6%"></div></div><span class="bar-label">45</span></div></div></div>
+      </div>
+    </div>
+  </section>
 
-    <h2>Next Analysis Step</h2>
-    <p>Run the present hot-humid scenario for all ten neighbourhoods, calculate dangerous-heat hours from 2 m air temperature, and compare heat hazard with exposure and vulnerability.</p>
-  </main>
+  <section class="split">
+    <div>
+      <h2>A feasible adaptation package</h2>
+      <p>The adaptation scenario is constrained on purpose. It does not assume unlimited redesign. Instead, it uses a citywide budget and allocates it where it has the largest justice benefit.</p>
+      <div class="pillars">
+        <div class="pillar"><h3>Land</h3><p>Convert up to 20% of total paved and bare soil area into evergreen trees, grass, and water.</p></div>
+        <div class="pillar"><h3>Cooling</h3><p>Increase citywide cooling access by 50% of current access, targeted toward vulnerability.</p></div>
+        <div class="pillar"><h3>Transport heat</h3><p>Assume 15% vehicle heat reduction as a policy lever. This dataset has QF off, so it is not active in the SUEWS run.</p></div>
+        <div class="pillar"><h3>Fairness</h3><p>Every neighbourhood must improve by at least 5%; extra benefit goes to the highest-risk hotspots.</p></div>
+      </div>
+    </div>
+    <div class="callout"><h3>Why allocation matters</h3><p>Spreading resources evenly would not be fair. Hotspot neighbourhoods have lower cooling access, more outdoor work, higher deprivation, and dense exposure. The package therefore uses a minimum guarantee for everyone, then directs extra cooling resources to the places where heat risk is socially concentrated.</p></div>
+  </section>
+
+  <section class="split">
+    <div>
+      <h2>Justice result</h2>
+      <p>The targeted scenario meets the fairness rule: every neighbourhood reaches at least 5% reduction in heat-risk pressure, with the largest gains in the currently most vulnerable hotspots.</p>
+      <div class="risk-list">
+        <div class="risk-row"><span>Kampong Lama</span><div class="risk-track"><div class="risk-fill hotspot" style="width:100%"></div></div><strong>19.6%</strong></div>
+        <div class="risk-row"><span>Dhobi Lines</span><div class="risk-track"><div class="risk-fill hotspot" style="width:92.4%"></div></div><strong>18.1%</strong></div>
+        <div class="risk-row"><span>Fuzhou Lanes</span><div class="risk-track"><div class="risk-fill hotspot" style="width:91.0%"></div></div><strong>17.8%</strong></div>
+        <div class="risk-row"><span>Mlima Moto</span><div class="risk-track"><div class="risk-fill hotspot" style="width:70.1%"></div></div><strong>13.8%</strong></div>
+        <div class="risk-row"><span>Lusitano Square</span><div class="risk-track"><div class="risk-fill core" style="width:25.5%"></div></div><strong>5.0%</strong></div>
+        <div class="risk-row"><span>Taman Melati</span><div class="risk-track"><div class="risk-fill refuge" style="width:25.5%"></div></div><strong>5.0%</strong></div>
+        <div class="risk-row"><span>Victoria Exchange</span><div class="risk-track"><div class="risk-fill core" style="width:25.5%"></div></div><strong>5.0%</strong></div>
+        <div class="risk-row"><span>Zheng He Towers</span><div class="risk-track"><div class="risk-fill core" style="width:25.5%"></div></div><strong>5.0%</strong></div>
+        <div class="risk-row"><span>Serendib Rise</span><div class="risk-track"><div class="risk-fill refuge" style="width:25.5%"></div></div><strong>5.0%</strong></div>
+        <div class="risk-row"><span>Jade Gardens</span><div class="risk-track"><div class="risk-fill refuge" style="width:25.5%"></div></div><strong>5.0%</strong></div>
+      </div>
+    </div>
+    <div class="card"><h3>Hotspot priority package</h3><ul><li><strong>Kampong Lama:</strong> 27.6% land conversion; cooling access from 8% to 48.8%.</li><li><strong>Dhobi Lines:</strong> 25.0% land conversion; cooling access from 10% to 53.6%.</li><li><strong>Fuzhou Lanes:</strong> 20.3% land conversion; cooling access from 7% to 54.6%.</li><li><strong>Mlima Moto:</strong> 17.5% land conversion; cooling access from 6% to 48.1%.</li></ul></div>
+  </section>
+
+  <section>
+    <h2>Scenario table</h2>
+    <p class="section-intro">The adaptation heat hours come from the SUEWS greening simulation. The risk reduction also includes the targeted cooling-access allocation.</p>
+    <div class="table-wrap"><table><thead><tr><th>ID</th><th>Neighbourhood</th><th>Type</th><th>Current heat hours</th><th>Future heat hours</th><th>Adaptation heat hours</th><th>Land converted</th><th>Cooling access</th><th>Risk reduction</th></tr></thead><tbody>
+      <tr><td>1</td><td>Jade Gardens</td><td><span class="type refuge">refuge</span></td><td>26</td><td>169</td><td>162</td><td>7.2%</td><td>45.0% to 46.2%</td><td>5.0%</td></tr>
+      <tr><td>2</td><td>Serendib Rise</td><td><span class="type refuge">refuge</span></td><td>9</td><td>123</td><td>119</td><td>5.9%</td><td>50.0% to 52.3%</td><td>5.0%</td></tr>
+      <tr><td>3</td><td>Taman Melati</td><td><span class="type refuge">refuge</span></td><td>21</td><td>153</td><td>147</td><td>6.9%</td><td>42.0% to 43.6%</td><td>5.0%</td></tr>
+      <tr><td>4</td><td>Kampong Lama</td><td><span class="type hotspot">hotspot</span></td><td>24</td><td>163</td><td>157</td><td>27.6%</td><td>8.0% to 48.8%</td><td>19.6%</td></tr>
+      <tr><td>5</td><td>Dhobi Lines</td><td><span class="type hotspot">hotspot</span></td><td>15</td><td>141</td><td>141</td><td>25.0%</td><td>10.0% to 53.6%</td><td>18.1%</td></tr>
+      <tr><td>6</td><td>Lusitano Square</td><td><span class="type core">core</span></td><td>1</td><td>72</td><td>71</td><td>6.7%</td><td>70.0% to 73.3%</td><td>5.0%</td></tr>
+      <tr><td>7</td><td>Mlima Moto</td><td><span class="type hotspot">hotspot</span></td><td>1</td><td>91</td><td>94</td><td>17.5%</td><td>6.0% to 48.1%</td><td>13.8%</td></tr>
+      <tr><td>8</td><td>Victoria Exchange</td><td><span class="type core">core</span></td><td>1</td><td>66</td><td>69</td><td>5.5%</td><td>72.0% to 79.8%</td><td>5.0%</td></tr>
+      <tr><td>9</td><td>Fuzhou Lanes</td><td><span class="type hotspot">hotspot</span></td><td>13</td><td>136</td><td>138</td><td>20.3%</td><td>7.0% to 54.6%</td><td>17.8%</td></tr>
+      <tr><td>10</td><td>Zheng He Towers</td><td><span class="type core">core</span></td><td>0</td><td>45</td><td>45</td><td>3.8%</td><td>78.0% to 81.7%</td><td>5.0%</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section>
+    <h2>What the result means</h2>
+    <p>The hotter future sharply increases dangerous heat hours across UDA-city. Greening helps, but it does not solve the problem alone. The strongest adaptation story combines physical cooling with social protection: more shade and evapotranspiration, better access to cooling, and priority for neighbourhoods with low cooling access, outdoor work, deprivation, and child exposure.</p>
+    <p>The scenario is feasible because it respects limits: only part of paved/bare land can change, cooling access is budgeted citywide, and vehicle heat is acknowledged as a policy lever without pretending it is active in the current SUEWS configuration.</p>
+  </section>
+</main>
+<footer><div class="wrap">Model: SUEWS / SuPy. City: synthetic UDA-city. Hazard metric: April-May hourly mean T2 above 35 C. Adaptation results generated from constrained scenario analysis.</div></footer>
 </body>
 </html>
